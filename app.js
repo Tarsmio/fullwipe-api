@@ -3,7 +3,7 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerJSDoc = require('swagger-jsdoc');
 const cors = require('cors')
 
-const mapRouter = require("./routes/map")
+const stageRouter = require("./routes/stage")
 
 const swaggerOptions = {
     swaggerDefinition: {
@@ -49,6 +49,6 @@ app.use(cors())
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 //routes
-app.use('/map', mapRouter)
+app.use('/stage', stageRouter)
 
 module.exports = app;
