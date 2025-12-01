@@ -95,6 +95,10 @@
         {
             "id": 23,
             "name": "Gare Aiguillat"
+        },
+        {
+            "id": 24,
+            "name" : "Passage Turbot"
         }
     ],
 
