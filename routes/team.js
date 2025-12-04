@@ -1,6 +1,7 @@
 const express = require('express')
 
 const teamCtrl = require("../controllers/teamController")
+const { getTeamById } = require('../midlware/searchTeam')
 
 const teamRouter = express.Router()
 
@@ -13,5 +14,7 @@ const teamRouter = express.Router()
  */
 
 teamRouter.get('/', teamCtrl.getTeams)
+
+teamRouter.get('/:id', getTeamById, teamCtrl.getTeam)
 
 module.exports = teamRouter

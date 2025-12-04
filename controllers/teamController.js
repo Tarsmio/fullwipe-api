@@ -1,5 +1,6 @@
 const axios = require('axios')
 const {ToornamentTokenGest} = require("../utils/ToornamenTokenGest")
+const {teamParse} = require('../utils/toornamentObjectsParser')
 
 const tokenInst = ToornamentTokenGest.getInstance()
 
@@ -19,25 +20,7 @@ async function getTeams(req, res, next){
         let teamList = []
 
         response.data.forEach(el => {
-            let teamObject = {
-                team_id : el.id,
-                logo : el.logo,
-                created_at : el.created_at,
-                name: el.name,
-                discord_cap : el.custom_fields.identifiant_discord_du_capitaine,
-                lineup: []
-            }
-
-            el.lineup.forEach(player => {
-                let playerObject = {
-                    name: player.name,
-                    discord: player.custom_fields.identifiant_discord_du_joueur
-                }
-
-                teamObject.lineup.push(playerObject)
-            })
-
-            teamList.push(teamObject)
+            teamList.push(teamParse(el))
         });
 
         res.status(200).json(teamList)
@@ -50,6 +33,11 @@ async function getTeams(req, res, next){
     }
 }
 
+async function getTeam(req, res, next) {
+    res.status(200).json(req.team)
+}
+
 module.exports = {
-    getTeams
+    getTeams,
+    getTeam
 }
