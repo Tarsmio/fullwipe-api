@@ -17,4 +17,6 @@ teamRouter.get('/', teamCtrl.getTeams)
 
 teamRouter.get('/:id', getTeamById, teamCtrl.getTeam)
 
+teamRouter.get('/:id/planning', getTeamById, teamCtrl.getPlanning)
+
 module.exports = teamRouter
