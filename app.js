@@ -4,6 +4,7 @@ const swaggerJSDoc = require('swagger-jsdoc');
 const cors = require('cors')
 
 const stageRouter = require("./routes/stage")
+const teamRouter = require("./routes/team")
 
 const swaggerOptions = {
     swaggerDefinition: {
@@ -50,5 +51,6 @@ app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 //routes
 app.use('/stage', stageRouter)
+app.use('/team', teamRouter)
 
 module.exports = app;
