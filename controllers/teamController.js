@@ -90,10 +90,11 @@ async function getPlanning(req, res, next){
             if(stageFinded){
                 stageFinded.matches.push({
                     id: m.id,
-                    tour_name: `${stageFinded.phase.name == "Groupes" ? groups.find(({id}) => id == m.group_id).name : stageFinded.phase.name} - ${rounds.find(({id}) => id == m.round_id).name}`,
+                    tour_name: rounds.find(({id}) => id == m.round_id).name,
                     date: m.scheduled_datetime,
                     place: m.public_note,
-                    versus: m.opponents.find(({participant}) => participant.id != req.team.team_id).participant.name
+                    versus: m.opponents.find(({participant}) => participant.id != req.team.team_id).participant.name,
+                    op_id: m.opponents.find(({participant}) => participant.id != req.team.team_id).participant.id
                 })
             } else {
                 let stageOfMatch = stages.find(({id}) => id == m.stage_id)
@@ -104,10 +105,11 @@ async function getPlanning(req, res, next){
                     },
                     matches : [{
                         id: m.id,
-                        tour_name: `${stageOfMatch.name == "Groupes" ? groups.find(({id}) => id == m.group_id).name : stageOfMatch.name} - ${rounds.find(({id}) => id == m.round_id).name}`,
+                        tour_name: rounds.find(({id}) => id == m.round_id).name,
                         date: m.scheduled_datetime,
                         place: m.public_note,
-                        versus: m.opponents.find(({participant}) => participant.id != req.team.team_id).participant.name
+                        versus: m.opponents.find(({participant}) => participant.id != req.team.team_id).participant.name,
+                        op_id: m.opponents.find(({participant}) => participant.id != req.team.team_id).participant.id
                     }]
                 }
 

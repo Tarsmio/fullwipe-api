@@ -1,4 +1,4 @@
-function teamParse(toornamentTeam) {
+function teamParseOld(toornamentTeam) {
     let teamObject = {
         team_id : toornamentTeam.id,
         logo : toornamentTeam.logo,
@@ -16,6 +16,16 @@ function teamParse(toornamentTeam) {
 
         teamObject.lineup.push(playerObject)
     })
+
+    return teamObject
+}
+
+function teamParse(toornamentTeam) {
+    let teamObject = {
+        team_id : toornamentTeam.id,
+        logo : toornamentTeam.logo,
+        name: toornamentTeam.name,
+    }
 
     return teamObject
 }

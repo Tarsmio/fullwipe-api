@@ -5,6 +5,7 @@ const cors = require('cors')
 
 const stageRouter = require("./routes/stage")
 const teamRouter = require("./routes/team")
+const matchRouter = require("./routes/match")
 
 const swaggerOptions = {
     swaggerDefinition: {
@@ -52,5 +53,6 @@ app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 //routes
 app.use('/stage', stageRouter)
 app.use('/team', teamRouter)
+app.use('/match', matchRouter)
 
 module.exports = app;

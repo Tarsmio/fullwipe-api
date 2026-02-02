@@ -18,6 +18,7 @@ async function getStages(req, res, next) {
         s.rounds.forEach(r => {
             let roundObject = {}
 
+            roundObject.id = r.id
             roundObject.round_name = r.name
             roundObject.sets = []
 

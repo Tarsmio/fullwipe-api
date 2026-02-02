@@ -5,6 +5,7 @@
             "name": "Groupes",
             "rounds": [
                 {
+                    "id": 10,
                     "name": "Tour 1",
                     "set": [
                         {
@@ -22,6 +23,7 @@
                     ]
                 },
                 {
+                    "id": 11,
                     "name": "Tour 2",
                     "set": [
                         {
@@ -39,6 +41,7 @@
                     ]
                 },
                 {
+                    "id": 12,
                     "name": "Tour 3",
                     "set": [
                         {
@@ -62,6 +65,7 @@
             "name": "Alpha",
             "rounds": [
                 {
+                    "id": 20,
                     "name": "1/8 Finale",
                     "set": [
                         {
@@ -79,6 +83,7 @@
                     ]
                 },
                 {
+                    "id": 21,
                     "name": "1/4 Finale",
                     "set": [
                         {
@@ -104,6 +109,7 @@
                     ]
                 },
                 {
+                    "id": 22,
                     "name": "1/2 Finale",
                     "set": [
                         {
@@ -129,6 +135,7 @@
                     ]
                 },
                 {
+                    "id": 23,
                     "name": "Finale",
                     "set": [
                         {
@@ -160,6 +167,7 @@
             "name": "Bravo",
             "rounds": [
                 {
+                    "id": 30,
                     "name": "1/8 Finale",
                     "set": [
                         {
@@ -177,6 +185,7 @@
                     ]
                 },
                 {
+                    "id": 31,
                     "name": "1/4 Finale",
                     "set": [
                         {
@@ -202,6 +211,7 @@
                     ]
                 },
                 {
+                    "id": 32,
                     "name": "1/2 Finale",
                     "set": [
                         {
@@ -227,6 +237,7 @@
                     ]
                 },
                 {
+                    "id": 33,
                     "name": "Finale / Petite finale",
                     "set": [
                         {
