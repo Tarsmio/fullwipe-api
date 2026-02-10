@@ -94,7 +94,8 @@ async function getPlanning(req, res, next){
                     date: m.scheduled_datetime,
                     place: m.public_note,
                     versus: m.opponents.find(({participant}) => participant.id != req.team.team_id).participant.name,
-                    op_id: m.opponents.find(({participant}) => participant.id != req.team.team_id).participant.id
+                    op_id: m.opponents.find(({participant}) => participant.id != req.team.team_id).participant.id,
+                    played: m.status == "completed" ? true : false
                 })
             } else {
                 let stageOfMatch = stages.find(({id}) => id == m.stage_id)
@@ -109,7 +110,8 @@ async function getPlanning(req, res, next){
                         date: m.scheduled_datetime,
                         place: m.public_note,
                         versus: m.opponents.find(({participant}) => participant.id != req.team.team_id).participant.name,
-                        op_id: m.opponents.find(({participant}) => participant.id != req.team.team_id).participant.id
+                        op_id: m.opponents.find(({participant}) => participant.id != req.team.team_id).participant.id,
+                        played: m.status == "completed" ? true : false
                     }]
                 }
 

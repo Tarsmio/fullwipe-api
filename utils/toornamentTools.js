@@ -41,6 +41,25 @@ async function fetchGroups() {
     }
 }
 
+async function fetchGroupsFromStage(sId) {
+    const url = `https://api.toornament.com/organizer/v2/groups?tournament_ids=${process.env.TOORNAMENT_ID}&stage_ids=${sId}`
+    const config = {
+        headers: {
+            'X-Api-Key': process.env.TOORNAMENT_API_KEY,
+            'Authorization': `Bearer ${await tokenInst.getToken()}`,
+            'Range': "groups=0-49",
+        }
+    }
+
+    try {
+        let response = await axios.get(url, config)
+
+        return response.data
+    } catch (err) {
+        throw err
+    }
+}
+
 async function fetchRoundsOfGroups(gIds){
     const url = `https://api.toornament.com/organizer/v2/rounds?tournament_ids=${process.env.TOORNAMENT_ID}&?group_ids=${gIds}`
     const config = {
@@ -63,5 +82,6 @@ async function fetchRoundsOfGroups(gIds){
 module.exports = {
     fetchStages,
     fetchGroups,
-    fetchRoundsOfGroups
+    fetchRoundsOfGroups,
+    fetchGroupsFromStage
 }
