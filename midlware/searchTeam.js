@@ -1,11 +1,21 @@
 const axios = require('axios')
 const {ToornamentTokenGest} = require("../utils/ToornamenTokenGest")
 const { teamParse } = require('../utils/toornamentObjectsParser')
+const { CachManager } = require('../cache/CachManager')
+const { CacheObject } = require('../cache/CacheObject')
 
 const tokenInst = ToornamentTokenGest.getInstance()
+const cache = CachManager.getInstance()
 
 async function getTeamById(req, res, next) {
     let teamId = req.params.id
+
+    let cachedTeam = cache.get(`team-${teamId}`)
+
+    if(cachedTeam != null){
+        req.team = cachedTeam.getData()
+        return next()
+    }
 
     const url = `https://api.toornament.com/organizer/v2/participants/${teamId}`
     const config = {
@@ -20,7 +30,9 @@ async function getTeamById(req, res, next) {
 
         req.team = teamParse(response.data)
 
-        next()
+        cache.set(`team-${teamId}`, new CacheObject(teamParse(response.data)))
+
+        return next()
     } catch (err) {
         if(err.status == 404) {
             return res.status(404).json({

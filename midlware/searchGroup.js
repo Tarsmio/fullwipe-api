@@ -1,10 +1,22 @@
 const axios = require('axios')
 const {ToornamentTokenGest} = require("../utils/ToornamenTokenGest")
+const { CachManager } = require('../cache/CachManager')
+const { CacheObject } = require('../cache/CacheObject')
 
 const tokenInst = ToornamentTokenGest.getInstance()
+const cache = CachManager.getInstance()
 
 async function getGroupById(req, res, next){
-    const url = `https://api.toornament.com/organizer/v2/groups/${req.params.id}`
+    let gId = req.params.id
+
+    let cachedGroup = cache.get(`group-${gId}`)
+
+    if(cachedGroup != null){
+        req.group = cachedGroup.getData()
+        return next()
+    }
+
+    const url = `https://api.toornament.com/organizer/v2/groups/${gId}`
     const config = {
         headers: {
             'X-Api-Key': process.env.TOORNAMENT_API_KEY,
@@ -19,7 +31,9 @@ async function getGroupById(req, res, next){
 
         req.group = repData
 
-        next()
+        cache.set(`group-${gId}`, new CacheObject(repData, 600000))
+
+        return next()
     } catch (err) {
         console.log(err)
         if(err.status == 404) {
@@ -37,6 +51,13 @@ async function getGroupById(req, res, next){
 async function getGroupRankingById(req, res, next) {
     let gId = req.params.id
 
+    let groupRankingCached = cache.get(`group-ranking-${gId}`)
+
+    if(groupRankingCached != null){
+        req.ranking = groupRankingCached.getData()
+        return next()
+    }
+
     const url = `https://api.toornament.com/organizer/v2/ranking-items?group_ids=${gId}`
     const config = {
         headers: {
@@ -51,7 +72,9 @@ async function getGroupRankingById(req, res, next) {
 
         req.ranking = response.data
 
-        next()
+        cache.set(`group-ranking-${gId}`, new CacheObject(response.data, 120000))
+
+        return next()
     } catch (err) {
         console.log(err)
         if(err.status == 404) {

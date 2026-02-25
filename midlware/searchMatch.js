@@ -1,8 +1,11 @@
 const axios = require('axios')
 const {ToornamentTokenGest} = require("../utils/ToornamenTokenGest")
 const { teamParse } = require('../utils/toornamentObjectsParser')
+const { CachManager } = require('../cache/CachManager')
+const { CacheObject } = require('../cache/CacheObject')
 
 const tokenInst = ToornamentTokenGest.getInstance()
+const cache = CachManager.getInstance()
 
 function hasWin(result) {
     if(result == "win") return true
@@ -11,6 +14,13 @@ function hasWin(result) {
 
 async function getMatchById(req, res, next) {
     let matchId = req.params.id
+
+    let cachedMatch = cache.get(`match-${matchId}`)
+
+    if(cachedMatch != null){
+        req.match = cachedMatch.getData()
+        return next()
+    }
 
     const url = `https://api.toornament.com/organizer/v2/matches/${matchId}`
     const config = {
@@ -49,7 +59,9 @@ async function getMatchById(req, res, next) {
             }
         }
 
-        next()
+        cache.set(`match-${matchId}`, new CacheObject(req.match, 300000))
+
+        return next()
     } catch (err) {
         console.log(err)
         if(err.status == 404) {

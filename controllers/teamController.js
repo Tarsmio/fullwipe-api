@@ -2,10 +2,18 @@ const axios = require('axios')
 const {ToornamentTokenGest} = require("../utils/ToornamenTokenGest")
 const {teamParse} = require('../utils/toornamentObjectsParser')
 const { fetchStages, fetchGroups, fetchRoundsOfGroups } = require('../utils/toornamentTools')
+const { CachManager } = require('../cache/CachManager')
 
 const tokenInst = ToornamentTokenGest.getInstance()
+const cache = CachManager.getInstance()
 
 async function getTeams(req, res, next){
+    let cachedTeams = cache.getDict('teams')
+
+    if(cachedTeams != null){
+        return res.status(200).json(cachedTeams.getDatas())
+    }
+
     const url = `https://api.toornament.com/organizer/v2/participants/?tournament_ids=${process.env.TOORNAMENT_ID}`
     const config = {
         headers: {
