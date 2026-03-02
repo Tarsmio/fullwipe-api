@@ -1,6 +1,6 @@
 {
   "name": "fullwipe-api",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Une api pour le site fullwipe de ebtv",
   "main": "server.js",
   "scripts": {
