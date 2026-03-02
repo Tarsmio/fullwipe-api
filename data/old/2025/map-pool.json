@@ -9,16 +9,16 @@
                     "name": "Tour 1",
                     "set": [
                         {
-                            "map": 0,
-                            "mode": 3
+                            "map": 22,
+                            "mode": 1
                         },
                         {
                             "map": 3,
                             "mode": 2
                         },
                         {
-                            "map": 10,
-                            "mode": 1
+                            "map": 6,
+                            "mode": 3
                         }
                     ]
                 },
@@ -27,15 +27,15 @@
                     "name": "Tour 2",
                     "set": [
                         {
-                            "map": 20,
+                            "map": 16,
                             "mode": 0
                         },
                         {
-                            "map": 16,
-                            "mode": 3
+                            "map": 2,
+                            "mode": 1
                         },
                         {
-                            "map": 0,
+                            "map": 12,
                             "mode": 2
                         }
                     ]
@@ -45,16 +45,16 @@
                     "name": "Tour 3",
                     "set": [
                         {
-                            "map": 8,
-                            "mode": 1
+                            "map": 0,
+                            "mode": 3
                         },
                         {
-                            "map": 7,
+                            "map": 10,
                             "mode": 0
                         },
                         {
-                            "map": 6,
-                            "mode": 3
+                            "map": 8,
+                            "mode": 1
                         }
                     ]
                 }
@@ -66,96 +66,56 @@
             "rounds": [
                 {
                     "id": 20,
-                    "name": "1/16 Finale",
+                    "name": "1/8 Finale",
                     "set": [
                         {
-                            "map": 13,
+                            "map": 8,
+                            "mode": 3
+                        },
+                        {
+                            "map": 10,
                             "mode": 0
                         },
                         {
-                            "map": 1,
+                            "map": 18,
                             "mode": 2
-                        },
-                        {
-                            "map": 16,
-                            "mode": 3
                         }
                     ]
                 },
                 {
                     "id": 21,
-                    "name": "1/8 Finale",
+                    "name": "1/4 Finale",
                     "set": [
                         {
-                            "map": 3,
+                            "map": 2,
                             "mode": 1
                         },
                         {
-                            "map": 14,
+                            "map": 12,
+                            "mode": 3
+                        },
+                        {
+                            "map": 16,
                             "mode": 0
                         },
                         {
-                            "map": 4,
+                            "map": 17,
                             "mode": 2
+                        },
+                        {
+                            "map": 6,
+                            "mode": 1
                         }
                     ]
                 },
                 {
                     "id": 22,
-                    "name": "1/4 Finale",
-                    "set": [
-                        {
-                            "map": 18,
-                            "mode": 3
-                        },
-                        {
-                            "map": 10,
-                            "mode": 1
-                        },
-                        {
-                            "map": 2,
-                            "mode": 0
-                        },
-                        {
-                            "map": 6,
-                            "mode": 2
-                        },
-                        {
-                            "map": 0,
-                            "mode": 3
-                        }
-                    ]
-                },
-                {
-                    "id": 23,
                     "name": "1/2 Finale",
                     "set": [
                         {
-                            "map": 19,
-                            "mode": 1
-                        },
-                        {
-                            "map": 10,
-                            "mode": 0
-                        },
-                        {
                             "map": 0,
-                            "mode": 2
-                        },
-                        {
-                            "map": 16,
                             "mode": 3
                         },
-                        {
-                            "map": 8,
-                            "mode": 1
-                        }
-                    ]
-                },
-                {
-                    "id": 24,
-                    "name": "Finale",
-                    "set": [
                         {
                             "map": 20,
                             "mode": 0
@@ -165,15 +125,37 @@
                             "mode": 2
                         },
                         {
+                            "map": 8,
+                            "mode": 1
+                        },
+                        {
                             "map": 6,
+                            "mode": 3
+                        }
+                    ]
+                },
+                {
+                    "id": 23,
+                    "name": "Finale",
+                    "set": [
+                        {
+                            "map": 7,
+                            "mode": 0
+                        },
+                        {
+                            "map": 0,
+                            "mode": 2
+                        },
+                        {
+                            "map": 10,
+                            "mode": 1
+                        },
+                        {
+                            "map": 16,
                             "mode": 3
                         },
                         {
                             "map": 2,
-                            "mode": 1
-                        },
-                        {
-                            "map": 7,
                             "mode": 0
                         }
                     ]
@@ -186,96 +168,56 @@
             "rounds": [
                 {
                     "id": 30,
-                    "name": "1/16 Finale",
+                    "name": "1/8 Finale",
                     "set": [
                         {
-                            "map": 13,
+                            "map": 8,
+                            "mode": 3
+                        },
+                        {
+                            "map": 10,
                             "mode": 0
                         },
                         {
-                            "map": 1,
+                            "map": 18,
                             "mode": 2
-                        },
-                        {
-                            "map": 16,
-                            "mode": 3
                         }
                     ]
                 },
                 {
                     "id": 31,
-                    "name": "1/8 Finale",
+                    "name": "1/4 Finale",
                     "set": [
                         {
-                            "map": 3,
+                            "map": 2,
                             "mode": 1
                         },
                         {
-                            "map": 14,
+                            "map": 12,
+                            "mode": 3
+                        },
+                        {
+                            "map": 16,
                             "mode": 0
                         },
                         {
-                            "map": 4,
+                            "map": 17,
                             "mode": 2
+                        },
+                        {
+                            "map": 6,
+                            "mode": 1
                         }
                     ]
                 },
                 {
                     "id": 32,
-                    "name": "1/4 Finale",
-                    "set": [
-                        {
-                            "map": 18,
-                            "mode": 3
-                        },
-                        {
-                            "map": 10,
-                            "mode": 1
-                        },
-                        {
-                            "map": 2,
-                            "mode": 0
-                        },
-                        {
-                            "map": 6,
-                            "mode": 2
-                        },
-                        {
-                            "map": 0,
-                            "mode": 3
-                        }
-                    ]
-                },
-                {
-                    "id": 33,
                     "name": "1/2 Finale",
                     "set": [
                         {
-                            "map": 19,
-                            "mode": 1
-                        },
-                        {
-                            "map": 10,
-                            "mode": 0
-                        },
-                        {
                             "map": 0,
-                            "mode": 2
-                        },
-                        {
-                            "map": 16,
                             "mode": 3
                         },
-                        {
-                            "map": 8,
-                            "mode": 1
-                        }
-                    ]
-                },
-                {
-                    "id": 34,
-                    "name": "Finale",
-                    "set": [
                         {
                             "map": 20,
                             "mode": 0
@@ -285,15 +227,37 @@
                             "mode": 2
                         },
                         {
+                            "map": 8,
+                            "mode": 1
+                        },
+                        {
                             "map": 6,
+                            "mode": 3
+                        }
+                    ]
+                },
+                {
+                    "id": 33,
+                    "name": "Finale",
+                    "set": [
+                        {
+                            "map": 7,
+                            "mode": 0
+                        },
+                        {
+                            "map": 0,
+                            "mode": 2
+                        },
+                        {
+                            "map": 10,
+                            "mode": 1
+                        },
+                        {
+                            "map": 16,
                             "mode": 3
                         },
                         {
                             "map": 2,
-                            "mode": 1
-                        },
-                        {
-                            "map": 7,
                             "mode": 0
                         }
                     ]
