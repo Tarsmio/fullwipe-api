@@ -7,6 +7,7 @@ const stageRouter = require("./routes/stage")
 const teamRouter = require("./routes/team")
 const matchRouter = require("./routes/match")
 const groupRouter = require("./routes/group");
+const messageRouter = require("./routes/message")
 const logger = require('./logger');
 
 const swaggerOptions = {
@@ -50,5 +51,6 @@ app.use('/stage', stageRouter)
 app.use('/team', teamRouter)
 app.use('/match', matchRouter)
 app.use('/group', groupRouter)
+app.use('/message', messageRouter)
 
 module.exports = app;
