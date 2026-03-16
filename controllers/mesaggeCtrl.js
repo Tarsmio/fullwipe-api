@@ -1,5 +1,8 @@
+const logger = require("../logger");
 const Message = require("../models/Message");
+const Subscription = require("../models/Subscription");
 const { getIO } = require("../socket");
+const webpush = require("web-push");
 
 async function getMessages(req, res, next) {
   try {
@@ -41,24 +44,65 @@ async function sendMessage(req, res, next) {
     creation: Date.now(),
   });
 
-  try {
-    let createdMessage = await messageToCreate.save();
+  let createdMessage;
 
-    getIO().emit("message", {
+  try {
+    createdMessage = await messageToCreate.save();
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ message: "Erreur interne !" });
+  }
+
+  try {
+    await getIO().emit("message", {
       id: createdMessage._id,
       title: createdMessage.title,
       content: createdMessage.content,
       creation: createdMessage.creation,
     });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ message: "Erreur interne !" });
+  }
 
-    res.status(201).json({
-      message: createdMessage,
-      msg: "Message envoyer",
+  try {
+    let subs = await Subscription.find();
+
+    let payloadToSend = JSON.stringify({
+      title: createdMessage.title,
+      body: createdMessage.content,
+    });
+
+    subs.forEach((subObj) => {
+      webpush
+        .sendNotification(subObj.sub, payloadToSend)
+        .then(() => {
+          logger.info(`Notification envoyé a ${subObj._id}`);
+        })
+        .catch((err) => {
+          logger.error("Erreur lors d'envoi de notif", err);
+          if (err.statusCode == 410) {
+            Subscription.deleteOne({ _id: subObj._id })
+              .then(() => {
+                logger.info(`Subscription ${subObj._id} supprimer`);
+              })
+              .catch((err) => {
+                logger.error(
+                  `Erreur lors de la suppression de la soubscription ${subObj._id}`
+                );
+              });
+          }
+        });
     });
   } catch (err) {
     console.log(err);
     return res.status(500).json({ message: "Erreur interne !" });
   }
+
+  res.status(201).json({
+    message: createdMessage,
+    msg: "Message envoyer",
+  });
 }
 
 async function deleteMessage(req, res, next) {
@@ -84,8 +128,53 @@ async function deleteMessage(req, res, next) {
   }
 }
 
+async function saveSub(req, res, next) {
+  if (!req.body)
+    return res.status(400).json({
+      message: "Body invalide",
+    });
+
+  const sub = req.body.subscription;
+  const endp = req.body.endpoint;
+
+  if (!sub || !endp)
+    return res.status(400).json({
+      message: "Body invalide",
+    });
+
+  let savedObj;
+
+  try {
+    savedObj = await Subscription.findOneAndUpdate(
+      { endpoint: endp },
+      {
+        endpoint: endp,
+        sub: sub,
+      },
+      {
+        upsert: true,
+        new: true,
+      }
+    );
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      message: "Erreur interne",
+    });
+  }
+
+  return res.status(201).json({
+    sub: {
+      id: savedObj._id,
+      sub: savedObj.sub,
+      endpoint: savedObj.endpoint,
+    },
+  });
+}
+
 module.exports = {
   getMessages,
   sendMessage,
   deleteMessage,
+  saveSub,
 };

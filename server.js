@@ -4,6 +4,7 @@ require('dotenv').config()
 const http = require('http')
 const app = require('./app')
 const socket = require('./socket')
+const webpush = require('web-push')
 
 const mongoose = require('mongoose')
 
@@ -41,6 +42,12 @@ mongoose.connect(process.env.DB_LINK, { dbName: process.env.DB_NAME}).then(() =>
     console.log(err)
     console.log("Connexion Db raté !")
 })
+
+webpush.setVapidDetails(
+    'mailto:contact@esportbros.tv',
+    process.env.WP_PUBLIC_KEY,
+    process.env.WP_PRIVATE_KEY
+)
 
 const server = http.createServer(app)
 socket.init(server)
