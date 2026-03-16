@@ -10,4 +10,6 @@ messageRouter.get("/", authMessage, messageCtrl.getMessages)
 messageRouter.post("/", authMessage, messageCtrl.sendMessage)
 
 messageRouter.delete("/:id", authMessage, getMessage, messageCtrl.deleteMessage)
+
+messageRouter.post('/subscribe', messageCtrl.saveSub)
 module.exports = messageRouter
