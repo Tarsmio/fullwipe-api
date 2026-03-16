@@ -32,8 +32,9 @@ async function getMessages(req, res, next) {
 async function sendMessage(req, res, next) {
   const title = req.body.title;
   const content = req.body.content;
+  const open = req.body.open
 
-  if (!title || !content)
+  if (!title || !content || !open)
     return res.status(400).json({
       message: "Corp de requete invalide !",
     });
@@ -71,6 +72,7 @@ async function sendMessage(req, res, next) {
     let payloadToSend = JSON.stringify({
       title: createdMessage.title,
       body: createdMessage.content,
+      url: open
     });
 
     subs.forEach((subObj) => {
