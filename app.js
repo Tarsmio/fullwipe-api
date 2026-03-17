@@ -1,7 +1,7 @@
 const express = require('express');
 const swaggerUi = require('swagger-ui-express');
-const swaggerJSDoc = require('swagger-jsdoc');
 const cors = require('cors')
+const YAML = require('yamljs')
 
 const stageRouter = require("./routes/stage")
 const teamRouter = require("./routes/team")
@@ -10,33 +10,7 @@ const groupRouter = require("./routes/group");
 const messageRouter = require("./routes/message")
 const logger = require('./logger');
 
-const swaggerOptions = {
-    swaggerDefinition: {
-        openapi: '3.0.0',
-        info: {
-            title: 'Fullwipe API',
-            version: '0.0.1',
-            description: 'Une API destiné au backend du site fullwipe de esportBrosTV',
-        },
-        servers: [
-            {
-                url: `${process.env.URL_API}`,
-            },
-        ],
-        components: {
-            securitySchemes: {
-                bearerAuth: {
-                    type: 'http',
-                    scheme: 'bearer',
-                    bearerFormat: 'JWT',
-                },
-            },
-        },
-    },
-    apis: ['./routes/*.js'], // Path to your API docs
-};
-
-const swaggerDocs = swaggerJSDoc(swaggerOptions);
+const swaggerDocs = YAML.load("./doc.yml");
 
 const app = express();
 
