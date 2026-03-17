@@ -1,0 +1,406 @@
+openapi: "3.0.3"
+
+info:
+  title: Fullwipe API
+  version: "1.2.1"
+  contact:
+    email: tarsmio@esportbros.tv
+    name: Tarsmio
+    url: https://esportbros.tv/
+
+servers:
+  - url: https://api-fullwipe.esportbros.tv
+    description: Serveur prod de l'api
+  - url: http://localhost:3000
+    description: Test server
+
+components:
+  schemas:
+    group:
+      type: object
+      properties:
+        id:
+          type: string
+          description: "Id du groupe"
+          example: "2427594459098171281"
+        name:
+          type: string
+          description: "Le nom du groupe"
+          example: "Groupe 5"
+        number:
+          type: integer
+          example: 5
+        settings:
+          type: object
+          properties:
+            size:
+              type: integer
+              example: 4
+        participants:
+          type: array
+          description: "L'id des équipes du groupe"
+          example:
+            [
+              "2430487542510637055",
+              "2430490827291834367",
+              "2430493976009144319",
+              "2430497116385531903",
+            ]
+    match:
+      type: object
+      properties:
+        id:
+          type: string
+          description: "Id du match"
+          example: "8499602282654416945"
+        status:
+          type: string
+          description: "Le statut du match"
+          example: "completed"
+        scheduled_datetime:
+          type: string
+          description: La date du match
+          example: "2025-04-13T10:30:00+00:00"
+        lieu:
+          type: string
+          description: "La station du match"
+          example: "Station 1 - Cast"
+        scores:
+          type: object
+          properties:
+            alpha:
+              type: object
+              properties:
+                team_id:
+                  type: string
+                  description: "L'id de l'équipe alpha"
+                  example: "8537093166400348160"
+                win:
+                  type: boolean
+                  example: false
+                forfeit:
+                  type: boolean
+                  example: false
+                point:
+                  type: integer
+                  example: 1
+            bravo:
+              type: object
+              properties:
+                team_id:
+                  type: string
+                  description: "L'id de l'équipe bravo"
+                  example: "8537091935693914112"
+                win:
+                  type: boolean
+                  example: true
+                forfeit:
+                  type: boolean
+                  example: false
+                point:
+                  type: integer
+                  example: 3
+    team:
+      type: object
+      properties:
+        team_id:
+          type: string
+          description: L'id de l'équipe
+          example: "2430491091459803135"
+        logo:
+          type: object
+          properties:
+            id:
+              type: string
+              description: l'id du logo de l'équipe
+              example: "2430491091635963890"
+        name:
+          type: string
+          description: le nom de l'équipe
+          example: Flamingo
+    matchPlanning:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Id du match
+          example: "2427594459098171298"
+        tour_name:
+          type: string
+          description: Le nom du tour
+          example: "Round 1"
+        date:
+          type: string
+          description: Date du match
+          example: "2026-03-21T11:30:00+00:00"
+        place:
+          type: string
+          description: Lieu du match
+          example: "Station 1"
+        versus:
+          type: string
+          description: Nom de l'adverssaire
+          example: "Shining Storm"
+        op_id:
+          type: string
+          description: Id de l'adverssaire
+          example: "2430494257170296831"
+        played:
+          type: boolean
+          example: false
+    planningPhase:
+      type: object
+      properties:
+        phase:
+          type: object
+          properties:
+            name:
+              type: string
+              description: Nom de la phase
+              example: Groupes
+            id:
+              type: string
+              description: Id de la phase
+              example: "2426832182990067711"
+        matches:
+          type: array
+          items:
+            $ref: "#/components/schemas/matchPlanning"
+    info:
+      type: object
+      properties:
+        id:
+          type: string
+          description: id du message
+          example: "69b74706ca251f4074e2a794"
+        title:
+          type: string
+          description: le titre du message
+          example: Message api
+        content:
+          type: string
+          description: Le contenur du message
+          example: Message d'exemple pour la doc
+        creation:
+          type: string
+          description: Date du message
+          example: "2026-03-16T18:04:17.153Z"
+  parameters:
+    groupeID:
+      name: id
+      in: path
+      required: true
+      description: "L'id du groupe"
+      schema:
+        type: string
+        example: "2427594459098171281"
+    matchID:
+      name: id
+      in: path
+      required: true
+      description: "l'id du match"
+      schema:
+        type: string
+        example: "8499602282654416945"
+    teamID:
+      name: id
+      in: path
+      required: true
+      description: "l'id de l'équipe"
+      schema:
+        type: string
+        example: "2430491091459803135"
+    messageID:
+      name: id
+      in: path
+      required: true
+      description: "l'id du message"
+      schema:
+        type: string
+        example: "69b74706ca251f4074e2a794"
+  securitySchemes:
+    messageRegister:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: "Clé de message"
+
+tags:
+  - name: Group
+    description: Routes liées au groupe
+  - name: Match
+    description: Routes liées au matchs
+  - name: Stage
+    description: Routes liées au stage
+  - name: Team
+    description: Routes liées au équipes
+  - name: Message
+    description: Routes liées au info
+
+paths:
+  /group:
+    get:
+      tags:
+        - Group
+      summary: Renvoi une liste d'id des groupes
+      responses:
+        "200":
+          description: La liste d'id des groupes
+          content:
+            application/json:
+              schema:
+                type: array
+                example: ["613166", "4899844", "..."]
+  /group/{id}:
+    get:
+      tags:
+        - Group
+      description: Renvoi le groupe lié a l'id
+      parameters:
+        - $ref: "#/components/parameters/groupeID"
+      responses:
+        "200":
+          description: Le groupe demander
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/group"
+  /match/{id}:
+    get:
+      tags:
+        - Match
+      description: "Obtien les info d'un match"
+      parameters:
+        - $ref: "#/components/parameters/matchID"
+      responses:
+        "200":
+          description: Le match demander
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/match"
+  /stage:
+    get:
+      tags:
+        - Stage
+      description: "Renvoi le map/mode de fullwipe"
+      responses:
+        "200":
+          description: Le map/mode de fullwipe
+  /team:
+    get:
+      tags:
+        - Team
+      description: "Revoi les équipe de fullwipe"
+      responses:
+        "200":
+          description: Les équpes de fullwipe
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/team"
+  /team/{id}:
+    get:
+      tags:
+        - Team
+      description: "Revoi une équipe via son id"
+      parameters:
+        - $ref: "#/components/parameters/teamID"
+      responses:
+        "200":
+          description: L'équipe demander
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/team"
+  /team/{id}/planning:
+    get:
+      tags:
+        - Team
+      description: "Revoi le planning d'une équipe"
+      parameters:
+        - $ref: "#/components/parameters/teamID"
+      responses:
+        "200":
+          description: Le planning de l'équipe
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/planningPhase"
+  /message:
+    get:
+      security:
+        - messageRegister: []
+      description: 'Récupere les info'
+      tags:
+        - Message
+      responses:
+        '200':
+          description: Liste des message
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  messages:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/info"
+    post:
+      description: "Envoi d'une info"
+      tags:
+        - Message
+      security:
+        - messageRegister: []
+      
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: Le titre du message
+                  example: Message d'exemple
+                content:
+                  type: string
+                  description: Le contenu du message
+                  example: Message d'exemple pour la doc
+                open:
+                  type: string
+                  description: L'url a ouvrir dans l'app pour la notif
+                  example: /maps
+
+      responses:
+        '201':
+          description: Le message creer
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/info"
+  /message/{id}:
+    delete:
+      tags:
+        - Message
+      security:
+        - messageRegister: []
+      description: 'Supprime un  message'
+      parameters: 
+        - $ref: "#/components/parameters/messageID"
+      responses:
+        '200':
+          description: OK
+  /message/subscribe:
+    post:
+      description: Abonnement au notif (Body d'exemple volontairement non present)
+      tags:
+        - Message
+      responses:
+        '200':
+          description: OK

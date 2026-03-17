@@ -102,8 +102,10 @@ async function sendMessage(req, res, next) {
   }
 
   res.status(201).json({
-    message: createdMessage,
-    msg: "Message envoyer",
+    id: createdMessage._id,
+    title: createdMessage.title,
+    content: createdMessage.content,
+    creation: createdMessage.creation
   });
 }
 

@@ -5,14 +5,6 @@ const { getGroupById, getGroupRankingById } = require('../midlware/searchGroup')
 
 const groupRouter = express.Router()
 
-/**
- * @swagger
- * tags:
- *   - name: Group
- *     description: Routes liées au groupe
- *         
- */
-
 groupRouter.get('/', groupCtrl.getGroupsListId)
 groupRouter.get('/:id', getGroupById, getGroupRankingById, groupCtrl.getGroup)
 
